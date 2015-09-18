@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://vivekmishra1991.github.io/sitemap.xml 
