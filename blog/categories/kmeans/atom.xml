@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Data Quest]]></title>
-  <link href="http://vivekmishra1991.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Kmeans | Data Quest]]></title>
+  <link href="http://vivekmishra1991.github.io/blog/categories/kmeans/atom.xml" rel="self"/>
   <link href="http://vivekmishra1991.github.io/"/>
   <updated>2015-09-19T19:47:47+01:00</updated>
   <id>http://vivekmishra1991.github.io/</id>
@@ -297,7 +297,7 @@ another algorithms called bisecting k-means is developed. It starts with choosin
 
 <p>Exporting this to Hamstermap and plotting the required coordinates gives the centroids(where delivery boys should be stationed) and respective restaurants they would service from.</p>
 
-<p>After some exploratory data-analysis we come up with following map.<img src="http://vivekmishra1991.github.io/./assets/result.jpg" alt="Optimal Points to cover entire Lucknow delivery space" /></p>
+<p>After some exploratory data-analysis we come up with following map.<img src="/./assets/result.jpg" alt="Optimal Points to cover entire Lucknow delivery space" /></p>
 ]]></content>
   </entry>
   
