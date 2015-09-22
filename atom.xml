@@ -4,7 +4,7 @@
   <title><![CDATA[Data Quest]]></title>
   <link href="http://vivekmishra1991.github.io/atom.xml" rel="self"/>
   <link href="http://vivekmishra1991.github.io/"/>
-  <updated>2015-09-19T19:47:47+01:00</updated>
+  <updated>2015-09-22T15:56:08+01:00</updated>
   <id>http://vivekmishra1991.github.io/</id>
   <author>
     <name><![CDATA[Vivek Mishra]]></name>
@@ -28,7 +28,7 @@
 
 <h2>DATA</h2>
 
-<p>I required <strong>names</strong> and <strong>addresses</strong> of all the restaurants in Lucknow. My only option was scraping data from my favorite food portal. <a href="A%20Fast%20and%20Powerful%20Scraping%20and%20Web%20Crawling%20Framework">Scrapy</a> an open source scraping tools came very handy in getting the names of all the restaurants.There were whooping <em>(for non-metro standard) 962</em> of them in Lucknow. <a href="vivekmishra1991/FrugalKMeans">Github-Scrap </a> has the required scripts &amp; instruction for doing this.</p>
+<p>I required <strong>names</strong> and <strong>addresses</strong> of all the restaurants in Lucknow. My only option was scraping data from my favorite food portal. <a href="http://scrapy.org/">Scrapy</a> an open source scraping tools came very handy in getting the names of all the restaurants.There were whooping <em>(for non-metro standard) 962</em> of them in Lucknow. <a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/scrap/spiders/frugalMeans.py">Github-Scrap </a> has the required scripts &amp; instruction for doing this.</p>
 
 <p>Sample scraped data:(<strong>TABLE 1</strong>)</p>
 
@@ -74,7 +74,7 @@
 
 <h3>Coordinates</h3>
 
-<p>After obtaining the names and addresses of all the restraunt ,next step was to get their coordinates.<a href="The%20Google%20Maps%20Geo-coding%20API">Google-Geo-coding API</a> does the trick.Just get a <code>API KEY</code> as instructed in aforementioned link and using <a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/co_ordinates/coordinate.py">coordinate.py</a> you will get a nice list of restaurants with their coordinates.</p>
+<p>After obtaining the names and addresses of all the restraunt ,next step was to get their coordinates.<a href="https://developers.google.com/maps/documentation/geocoding/intro">Google-Geo-coding API</a> does the trick.Just get a <code>API KEY</code> as instructed in aforementioned link and using <a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/co_ordinates/coordinate.py">coordinate.py</a> you will get a nice list of restaurants with their coordinates.</p>
 
 <p>Something like this:(<strong>Table 2</strong>)</p>
 
@@ -132,7 +132,7 @@
 
 <p>Now we have all the data that we require to analyze our problem.But still a little trimming is required to make the available data suitable to be fed into our algorithm.</p>
 
-<p>First step would be to using <a href="Python%20Data%20Analysis%20Library">Pandas</a> library to weed out the addresses &amp; names and also fill up the NA data point if any. After data processing stage we are left with coordinates only.</p>
+<p>First step would be to using <a href="http://pandas.pydata.org/">Pandas</a> library to weed out the addresses &amp; names and also fill up the NA data point if any. After data processing stage we are left with coordinates only.</p>
 
 <p>Something like:(<strong>Table 3</strong>)</p>
 
@@ -225,7 +225,7 @@ another algorithms called bisecting k-means is developed. It starts with choosin
 
 <h2>Results and Visualizations</h2>
 
-<p><a href="Generate%20custom%20maps%20using%20your%20coordinates%20in%20Excel!">Hamstermap</a> is a beautiful online tool for plotting map coordinates but since it accepts a specific format we need to do a little Data munging for that. A python script(<a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/frugalKmeans.py">frugalKmeans.py</a>) I have written does the same very efficiently .After transforming the data with above script we are left with the following list of <a href="vivekmishra1991/FrugalKMeans">data points</a> :</p>
+<p><a href="Generate%20custom%20maps%20using%20your%20coordinates%20in%20Excel!">Hamstermap</a> is a beautiful online tool for plotting map coordinates but since it accepts a specific format we need to do a little Data munging for that. A python script(<a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/frugalKmeans.py">frugalKmeans.py</a>) I have written does the same very efficiently .After transforming the data with above script we are left with the following list of <a href="https://github.com/vivekmishra1991/FrugalKMeans/tree/master/frugalKmeans/hamstermap">data points</a> :</p>
 
 <table>
 <thead>
