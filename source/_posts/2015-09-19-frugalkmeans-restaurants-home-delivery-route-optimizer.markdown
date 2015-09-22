@@ -14,7 +14,7 @@ FrugalKmeans tries to analyze this over my favorite city *Lucknow*,India which i
 After-all **FRUGALITY IS OPTIMAL**.
 
 ##DATA
-I required **names** and **addresses** of all the restaurants in Lucknow. My only option was scraping data from my favorite food portal. [Scrapy](A Fast and Powerful Scraping and Web Crawling Framework) an open source scraping tools came very handy in getting the names of all the restaurants.There were whooping *(for non-metro standard) 962* of them in Lucknow. [Github-Scrap ](vivekmishra1991/FrugalKMeans) has the required scripts & instruction for doing this.
+I required **names** and **addresses** of all the restaurants in Lucknow. My only option was scraping data from my favorite food portal. [Scrapy](http://scrapy.org/) an open source scraping tools came very handy in getting the names of all the restaurants.There were whooping *(for non-metro standard) 962* of them in Lucknow. [Github-Scrap ](https://github.com/vivekmishra1991/FrugalKMeans/blob/master/scrap/spiders/frugalMeans.py) has the required scripts & instruction for doing this.
 
 Sample scraped data:(**TABLE 1**) 
 
@@ -31,7 +31,7 @@ Sample scraped data:(**TABLE 1**)
  
 ###Coordinates
 
-After obtaining the names and addresses of all the restraunt ,next step was to get their coordinates.[Google-Geo-coding API](The Google Maps Geo-coding API) does the trick.Just get a `API KEY` as instructed in aforementioned link and using [coordinate.py](https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/co_ordinates/coordinate.py) you will get a nice list of restaurants with their coordinates.
+After obtaining the names and addresses of all the restraunt ,next step was to get their coordinates.[Google-Geo-coding API](https://developers.google.com/maps/documentation/geocoding/intro) does the trick.Just get a `API KEY` as instructed in aforementioned link and using [coordinate.py](https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/co_ordinates/coordinate.py) you will get a nice list of restaurants with their coordinates.
 
 Something like this:(**Table 2**)
 
@@ -49,7 +49,7 @@ Something like this:(**Table 2**)
 
 Now we have all the data that we require to analyze our problem.But still a little trimming is required to make the available data suitable to be fed into our algorithm. 
 
-First step would be to using [Pandas](Python Data Analysis Library) library to weed out the addresses & names and also fill up the NA data point if any. After data processing stage we are left with coordinates only.
+First step would be to using [Pandas](http://pandas.pydata.org/) library to weed out the addresses & names and also fill up the NA data point if any. After data processing stage we are left with coordinates only.
 
 Something like:(**Table 3**)
 
@@ -86,7 +86,7 @@ After aplying Bisecting K-means clustering algorithm([Github-BiKmeans.py](https:
 
 
 ##Results and Visualizations
-[Hamstermap](Generate custom maps using your coordinates in Excel!) is a beautiful online tool for plotting map coordinates but since it accepts a specific format we need to do a little Data munging for that. A python script([frugalKmeans.py](https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/frugalKmeans.py)) I have written does the same very efficiently .After transforming the data with above script we are left with the following list of [data points](vivekmishra1991/FrugalKMeans) :
+[Hamstermap](Generate custom maps using your coordinates in Excel!) is a beautiful online tool for plotting map coordinates but since it accepts a specific format we need to do a little Data munging for that. A python script([frugalKmeans.py](https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/frugalKmeans.py)) I have written does the same very efficiently .After transforming the data with above script we are left with the following list of [data points](https://github.com/vivekmishra1991/FrugalKMeans/tree/master/frugalKmeans/hamstermap) :
 
 | latitude   | longitude  | marker  | color  | 
 |------------|------------|---------|--------| 
