@@ -3,10 +3,6 @@
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <title>Category: Clustering - Data Quest</title>
@@ -22,393 +18,165 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://vivekmishra1991.github.io/blog/categories/clustering">
+  <link rel="canonical" href="http://vivekmishra1991.github.io/blog/categories/clustering/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Data Quest" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
   
 
 </head>
 
-  <body>
-    <a href="/" class="home-icon">
-      <img src="/images/home.png"/>
-    </a>
-
-    <div class="all-posts">
-  <div class="container">
-    <div class="row">
-      <div class="list-title col-md-offset-3 col-md-6">
-        <h4>Posts in clustering</h4>
-      </div>
-    </div>
-  </div>
-
-  <div class="article-list">
-    <div class="container">
-      
-        
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
-            <article>
-  <h2><a href="/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/">FrugalKmeans: Restaurants' Home Delivery Route Optimizer</a></h2>
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Data Quest</a></h1>
   
-  <p>
-    <h2>Introduction</h2>
-
-<p>What if I could reduce the home delivery cost of restaurants around my city.Maybe optimize routes , cluster restaurants into similar regions and assign delivery men to each cluster. Would this help ? Lets find out.</p>
-
-<p>FrugalKmeans tries to analyze this over my favorite city <em>Lucknow</em>,India which is known for its exquisite <em>Awadhi</em> Cuisine .</p>
-
-<p>After-all <strong>FRUGALITY IS OPTIMAL</strong>.</p>
-
-<h2>DATA</h2>
-
-<p>I required <strong>names</strong> and <strong>addresses</strong> of all the restaurants in Lucknow. My only option was scraping data from my favorite food portal. <a href="http://scrapy.org/">Scrapy</a> an open source scraping tools came very handy in getting the names of all the restaurants.There were whooping <em>(for non-metro standard) 962</em> of them in Lucknow. <a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/scrap/spiders/frugalMeans.py">Github-Scrap </a> has the required scripts &amp; instruction for doing this.</p>
-
-<p>Sample scraped data:(<strong>TABLE 1</strong>)</p>
-
-<table>
-<thead>
-<tr>
-<th> <strong>address</strong>                                      </th>
-<th> <strong>name</strong>                         </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>                                                  </td>
-<td>                              </td>
-</tr>
-<tr>
-<td> _____________________________________________________</td>
-<td>________________________</td>
-</tr>
-<tr>
-<td> 41/47, Opposite Kendriya Vidyalaya, Vivek Khand  </td>
-<td>       180 Chocoxpress              </td>
-</tr>
-<tr>
-<td> 3rd Floor, Hera Plaza, Sector 8, Vikas Nagar, </td>
-<td>          101 Temperature Lounge       </td>
-</tr>
-<tr>
-<td> Capital Building, GPO, Hazratganj, Lucknow       </td>
-<td>       A 1 Dildar Sindhi Restaurant </td>
-</tr>
-<tr>
-<td> 4th Floor, Food Court, Phoenix United Mall, Alambagh </td>
-<td>   180 Chocoxpress              </td>
-</tr>
-<tr>
-<td> 5th Floor, Phoenix United Mall, Alambagh, Lucknow </td>
-<td>       5 C R Lounge                 </td>
-</tr>
-</tbody>
-</table>
-
-
-<h3>Coordinates</h3>
-
-<p>After obtaining the names and addresses of all the restraunt ,next step was to get their coordinates.<a href="https://developers.google.com/maps/documentation/geocoding/intro">Google-Geo-coding API</a> does the trick.Just get a <code>API KEY</code> as instructed in aforementioned link and using <a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/co_ordinates/coordinate.py">coordinate.py</a> you will get a nice list of restaurants with their coordinates.</p>
-
-<p>Something like this:(<strong>Table 2</strong>)</p>
-
-<table>
-<thead>
-<tr>
-<th> <strong>name</strong>                                    </th>
-<th> <strong>address</strong>                                                                                                        </th>
-<th> <strong>Lat.</strong>        </th>
-<th> <strong>Long.</strong>       </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td> __________________________________________</td>
-<td>___________________________________________</td>
-<td>______________________</td>
-<td>___________</td>
-</tr>
-<tr>
-<td>                                                                                                                </td>
-<td>            </td>
-<td>            </td>
-<td></td>
-</tr>
-<tr>
-<td> Hera Plaza Sector 8 Vikas Nagar lucknow </td>
-<td> Sector 8, Vikas Nagar, Lucknow, Uttar Pradesh 226022, India                                                    </td>
-<td> 26.8906639  </td>
-<td> 80.9670749 </td>
-</tr>
-<tr>
-<td> Kamla Nehru Marg lucknow                </td>
-<td> Kamla Nehru Marg, Lucknow, Uttar Pradesh 226003, India                                                         </td>
-<td> 26.8658443 </td>
-<td> 80.9104684 </td>
-</tr>
-<tr>
-<td> GPO Hazratganj Lucknow lucknow          </td>
-<td> Sardar Patel Park, Vidhan Sabha Marg, Raj Bhavan Colony, The Mall Avenue, Lucknow, Uttar Pradesh 226001, India </td>
-<td> 26.8453894 </td>
-<td> 80.9456421 </td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>DATA PREPROCESSING</h2>
-
-<p>Now we have all the data that we require to analyze our problem.But still a little trimming is required to make the available data suitable to be fed into our algorithm.</p>
-
-<p>First step would be to using <a href="http://pandas.pydata.org/">Pandas</a> library to weed out the addresses &amp; names and also fill up the NA data point if any. After data processing stage we are left with coordinates only.</p>
-
-<p>Something like:(<strong>Table 3</strong>)</p>
-
-<table>
-<thead>
-<tr>
-<th> <strong>Latitude</strong>   </th>
-<th> <strong>Longitude</strong>  </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>___________________</td>
-<td>___________</td>
-</tr>
-<tr>
-<td> 26.8466937 </td>
-<td> 80.946166  </td>
-</tr>
-<tr>
-<td> 26.8466937 </td>
-<td> 80.946166  </td>
-</tr>
-<tr>
-<td> 26.8466937 </td>
-<td> 80.946166  </td>
-</tr>
-<tr>
-<td> 26.8906639 </td>
-<td> 80.9670749 </td>
-</tr>
-<tr>
-<td> 26.8658443 </td>
-<td> 80.9104684 </td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>Clustering</h2>
-
-<p>Next step in this quest to find a frugal method for home delivery comes with the clustering of restaurants into similar geographical regions.And what is a better method then K-Means to achieve that.But there is a problem with K-Means for this dataset and it fails giving NA values as the cluster centroids, if <code>K&gt;4</code>.</p>
-
-<p>This is a serious issue pretaining to K-Means therefore I somehow settled for <strong>&lsquo;Bi-KMeans&rsquo;</strong> or <strong>Bisecting KMeans</strong> clustering algorithm which is a little different form the traditional K-means algorithm in following ways.</p>
-
-<p>k-means sometimes gives poor results if it is caught in a local minimum.Therfore
-another algorithms called bisecting k-means is developed. It starts with choosing one random centroid and distance from all the points is calculated as sum of square error or <strong>SSE</strong>. While number of centroids are less then <strong>K</strong>(user defined number of clusters) algorithms recursively splits the above cluster into many clusters based on the least SSE error for the split.</p>
-
-<p>After aplying Bisecting K-means clustering algorithm(<a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/biKMeans.py">Github-BiKmeans.py</a>) to the data in Table3 we get another list of data points with two features &ldquo;<strong>the cluster they belong to</strong>&rdquo; and &ldquo;<strong>distance from corresponding centroid</strong>&rdquo; . A sample data from after transformation :</p>
-
-<table>
-<thead>
-<tr>
-<th> Cluster </th>
-<th>  SSE or distance </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>_________</td>
-<td>__________________ </td>
-</tr>
-<tr>
-<td> 8       </td>
-<td> 0.5886538506     </td>
-</tr>
-<tr>
-<td> 3       </td>
-<td> 0.0241409154     </td>
-</tr>
-<tr>
-<td> 3       </td>
-<td> 0.0107502713     </td>
-</tr>
-<tr>
-<td> 3       </td>
-<td> 0.0107502713     </td>
-</tr>
-<tr>
-<td> 7       </td>
-<td> 0.2401804062     </td>
-</tr>
-<tr>
-<td> 0       </td>
-<td> 0.1848409829     </td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>Results and Visualizations</h2>
-
-<p><a href="Generate%20custom%20maps%20using%20your%20coordinates%20in%20Excel!">Hamstermap</a> is a beautiful online tool for plotting map coordinates but since it accepts a specific format we need to do a little Data munging for that. A python script(<a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/frugalKmeans.py">frugalKmeans.py</a>) I have written does the same very efficiently .After transforming the data with above script we are left with the following list of <a href="https://github.com/vivekmishra1991/FrugalKMeans/tree/master/frugalKmeans/hamstermap">data points</a> :</p>
-
-<table>
-<thead>
-<tr>
-<th> latitude   </th>
-<th> longitude  </th>
-<th> marker  </th>
-<th> color  </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>_____________</td>
-<td>____________</td>
-<td>_________</td>
-<td>________</td>
-</tr>
-<tr>
-<td> 26.8466937 </td>
-<td> 80.946166  </td>
-<td> circle1 </td>
-<td> blue   </td>
-</tr>
-<tr>
-<td> 26.8466937 </td>
-<td> 80.946166  </td>
-<td> circle1 </td>
-<td> blue   </td>
-</tr>
-<tr>
-<td> 26.8906639 </td>
-<td> 80.9670749 </td>
-<td> circle1 </td>
-<td> blue   </td>
-</tr>
-<tr>
-<td> 26.8658443 </td>
-<td> 80.9104684 </td>
-<td> circle1 </td>
-<td> orange </td>
-</tr>
-<tr>
-<td> 26.8453894 </td>
-<td> 80.9456421 </td>
-<td> circle1 </td>
-<td> blue   </td>
-</tr>
-<tr>
-<td> 26.8466937 </td>
-<td> 80.946166  </td>
-<td> circle1 </td>
-<td> blue   </td>
-</tr>
-<tr>
-<td> 26.8466937 </td>
-<td> 80.946166  </td>
-<td> circle1 </td>
-<td> blue   </td>
-</tr>
-<tr>
-<td> 26.8532449 </td>
-<td> 80.9965217 </td>
-<td> circle1 </td>
-<td> black  </td>
-</tr>
-</tbody>
-</table>
-
-
-<p>Exporting this to Hamstermap and plotting the required coordinates gives the centroids(where delivery boys should be stationed) and respective restaurants they would service from.</p>
-
-<p>After some exploratory data-analysis we come up with following map.<img src="/./assets/result.jpg" alt="Optimal Points to cover entire Lucknow delivery space" /></p>
-
-  </p>
-  <span class="meta">
-    written 
-
-
-
-
-
-
-
-
+    <h2>A Data Science Blog.</h2>
   
+</hgroup>
 
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="vivekmishra1991.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/projects">Projects</a></li>
+</ul>
 
-
-<time datetime="2015-09-19T11:41:55+01:00" pubdate data-updated="true"></time>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Category: Clustering</h1>
     
-
-in
-<span class="categories">
+  </header>
   
-    <a class='category' href='/blog/categories/clustering/'>clustering</a>, <a class='category' href='/blog/categories/kmeans/'>kmeans</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+  <div id="blog-archives" class="category">
+
+
+
   
-</span>
+  <h2>2015</h2>
+
+<article>
+  
+<h1><a href="/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/">FrugalKmeans: Restaurants' Home Delivery Route Optimizer</a></h1>
+<time datetime="2015-09-19T11:41:55+01:00" pubdate><span class='month'>Sep</span> <span class='day'>19</span> <span class='year'>2015</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/clustering/'>clustering</a>, <a class='category' href='/blog/categories/kmeans/'>kmeans</a>, <a class='category' href='/blog/categories/projects/'>projects</a></span>
+</footer>
 
 
-  </span>
+</article>
+
+</div>
 
   
 </article>
 
-          </div>
-        </div>
-      
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/">FrugalKmeans: Restaurants' Home Delivery Route Optimizer</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/vivekmishra1991">@vivekmishra1991</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'vivekmishra1991',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
     </div>
   </div>
-</div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Vivek Mishra -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
 
-    <footer id="footer" class="her-row">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-1">
-  <a href="/"><h4>Home</h4></a>
-</div>
-
-<div class="col-md-2">
-  <div class="social-icon-list">
-    
-    <a href="https://twitter.com/vivekmishra1991"><img src="/images/glyphicons_social_31_twitter.png"/></a>
-    
-
-    
-    <a href="https://github.com/vivekmishra1991"><img src="/images/glyphicons_social_21_github.png"/></a>
-    
-
-    
-
-    
-  </div>
-</div>
-
-<div class="pull-right">
-  <h4>Powered by <a href="http://octopress.org/">Octopress</a>. Designed by <a href="http://AdrianArtiles.com">Adrian Artiles</a>.</h4>
-</div>
-
-
-    </div>
-  </div>
 </footer>
+  
 
-    
-  </body>
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
 </html>
