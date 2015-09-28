@@ -9,7 +9,7 @@
   <meta name="author" content="Vivek Mishra">
 
   
-  <meta name="description" content="Blog Archives Recent Posts AdaBoost : Why It Is Robust to Overfitting FrugalKmeans: Restaurants' Home Delivery Route Optimizer GitHub Repos Status &hellip;">
+  <meta name="description" content="Introduction Bagging vs. Boosting There are two reasons for errors in an estimator namely variance or bias.A too complex model(unpruned decision &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,373 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting/">AdaBoost : Why It Is Robust to Overfitting</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-09-28T16:49:29+01:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:49 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Introduction</h2>
+
+<h4>Bagging vs. Boosting</h4>
+
+<p>There are two reasons for errors in an estimator namely variance or bias.A too complex model(<em>unpruned decision trees</em>) have high variance but low bias  whereas a too simple model( <em>Weak learners like decision stumps</em> ) have high bias but low variance.To minimize these two types of errors two different approaches are required namely <em>bagging</em>(complex models/high variance) and <em>boosting</em>(simple models/high bias). </br>
+In more general terms bagging also known as <em>bootstrap aggregating</em> tries to build complex models over many bootstrapped samples from the same distribution(datasets) and gives simpler but more robust model either by simple averaging or majority voting over former complex models.Whereas boosting is an approach of ensembling strong learners from weak learners simply by improving over the misclassified labels from dataset in a finite number of iterations.In this blog we will try to shed some light over the learning approach of boosting meta-algorithm .</p>
+
+<h2>AdaBoost</h2>
+
+<h4>Weak Learners And Boosting</h4>
+
+<p>In 1988 Michael Kearns remarked whether one can boost a weak learner to a strong learner which was answered by a <a href="http://www.cs.princeton.edu/~schapire/papers/strengthofweak.pdf">remarkable paper</a> by Rob Schapire published in 1990. Thereby paving a way for a novel approach of utilizing the power of a weak learners two give a better , versatile and more robust strong learners.<strong>Yoav Freund</strong> and <strong>Robert Schapire</strong> came together  to work on a much strong &amp; refined meta-algorithm called AdaBoost or <em>Adaptive Boosting</em> which won them the prestigious Gödel Prize in 2003.But before we dive into realms of Adaboost algorithm we need to have a clear understanding of what a weak learner is.</br>
+    By weak I mean that classifier does a better job at classifying than randomly guessing but not by much i.e. it classifies  slightly better than 50% of the correct labels in the sample outputs.A weak classifer could be a simple decision stump(<em>A stump is a two-node tree, after a single split.</em>) C4.5 and ID3 generated decision trees are also perform well as weak learners for adaboost.</p>
+
+<h4>Algorithm</h4>
+
+<p><img src="/./assets/adaboost/algo.jpg" alt="Adaboost Algorithm" /></p>
+
+<ol>
+<li>If there are N datum in the dataset then initially we distribute equal weights to all datapoints (wi=1/N).</br></li>
+<li>We take <strong>M</strong> iterations from <strong>m=1 to M</strong> and for each <em>m</em></br>
+a) Fit a weak classifier to the training data using above weights.</br>
+b) <em>err</em> is calculated as weighted average of mis-classified dataum </br>
+c) <em>alpha</em> for each iteration is calculated. <em>err</em> must be less then 0.5 ,i.e. weak learners should be better than random guesses, for alpha>1.<br>
+d) exp(Indicator function(I)) gives 1 when I=0 hence weight remain unchanged else when I=1 weight is readjusted(increases) to <em>weight*alpha</em>.</br></li>
+<li>Now new classifier is weighted sum of on each M iterations' alpha value and classifier output.</li>
+</ol>
+
+
+<p><img src="/./assets/adaboost/schematic.jpg" alt="schematic representation" /><em> <strong>Fig-2</strong> Schematic representation of AdaBoost; with the dataset on the left side,the different widths of the bars represent weights applied to each instance. The weighted predictions pass through a classifier, which is then weighted by the triangles (alpha values). The weighted output of each triangle is summed up in the circle, which produces the final output.</em>
+<strong>Source</strong>:MLIA-Peter Harrington</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/">FrugalKmeans: Restaurants' Home Delivery Route Optimizer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-09-19T11:41:55+01:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:41 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Introduction</h2>
+
+<p>What if I could reduce the home delivery cost of restaurants around my city.Maybe optimize routes , cluster restaurants into similar regions and assign delivery men to each cluster. Would this help ? Lets find out.</p>
+
+<p>FrugalKmeans tries to analyze this over my favorite city <em>Lucknow</em>,India which is known for its exquisite <em>Awadhi</em> Cuisine .</p>
+
+<p>After-all <strong>FRUGALITY IS OPTIMAL</strong>.</p>
+
+<h2>DATA</h2>
+
+<p>I required <strong>names</strong> and <strong>addresses</strong> of all the restaurants in Lucknow. My only option was scraping data from my favorite food portal. <a href="http://scrapy.org/">Scrapy</a> an open source scraping tools came very handy in getting the names of all the restaurants.There were whooping <em>(for non-metro standard) 962</em> of them in Lucknow. <a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/scrap/spiders/frugalMeans.py">Github-Scrap </a> has the required scripts &amp; instruction for doing this.</p>
+
+<p>Sample scraped data:(<strong>TABLE 1</strong>)</p>
+
+<table>
+<thead>
+<tr>
+<th> <strong>address</strong>                                      </th>
+<th> <strong>name</strong>                         </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>                                                  </td>
+<td>                              </td>
+</tr>
+<tr>
+<td> _____________________________________________________</td>
+<td>________________________</td>
+</tr>
+<tr>
+<td> 41/47, Opposite Kendriya Vidyalaya, Vivek Khand  </td>
+<td>       180 Chocoxpress              </td>
+</tr>
+<tr>
+<td> 3rd Floor, Hera Plaza, Sector 8, Vikas Nagar, </td>
+<td>          101 Temperature Lounge       </td>
+</tr>
+<tr>
+<td> Capital Building, GPO, Hazratganj, Lucknow       </td>
+<td>       A 1 Dildar Sindhi Restaurant </td>
+</tr>
+<tr>
+<td> 4th Floor, Food Court, Phoenix United Mall, Alambagh </td>
+<td>   180 Chocoxpress              </td>
+</tr>
+<tr>
+<td> 5th Floor, Phoenix United Mall, Alambagh, Lucknow </td>
+<td>       5 C R Lounge                 </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>Coordinates</h3>
+
+<p>After obtaining the names and addresses of all the restraunt ,next step was to get their coordinates.<a href="https://developers.google.com/maps/documentation/geocoding/intro">Google-Geo-coding API</a> does the trick.Just get a <code>API KEY</code> as instructed in aforementioned link and using <a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/co_ordinates/coordinate.py">coordinate.py</a> you will get a nice list of restaurants with their coordinates.</p>
+
+<p>Something like this:(<strong>Table 2</strong>)</p>
+
+<table>
+<thead>
+<tr>
+<th> <strong>name</strong>                                    </th>
+<th> <strong>address</strong>                                                                                                        </th>
+<th> <strong>Lat.</strong>        </th>
+<th> <strong>Long.</strong>       </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td> __________________________________________</td>
+<td>___________________________________________</td>
+<td>______________________</td>
+<td>___________</td>
+</tr>
+<tr>
+<td>                                                                                                                </td>
+<td>            </td>
+<td>            </td>
+<td></td>
+</tr>
+<tr>
+<td> Hera Plaza Sector 8 Vikas Nagar lucknow </td>
+<td> Sector 8, Vikas Nagar, Lucknow, Uttar Pradesh 226022, India                                                    </td>
+<td> 26.8906639  </td>
+<td> 80.9670749 </td>
+</tr>
+<tr>
+<td> Kamla Nehru Marg lucknow                </td>
+<td> Kamla Nehru Marg, Lucknow, Uttar Pradesh 226003, India                                                         </td>
+<td> 26.8658443 </td>
+<td> 80.9104684 </td>
+</tr>
+<tr>
+<td> GPO Hazratganj Lucknow lucknow          </td>
+<td> Sardar Patel Park, Vidhan Sabha Marg, Raj Bhavan Colony, The Mall Avenue, Lucknow, Uttar Pradesh 226001, India </td>
+<td> 26.8453894 </td>
+<td> 80.9456421 </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>DATA PREPROCESSING</h2>
+
+<p>Now we have all the data that we require to analyze our problem.But still a little trimming is required to make the available data suitable to be fed into our algorithm.</p>
+
+<p>First step would be to using <a href="http://pandas.pydata.org/">Pandas</a> library to weed out the addresses &amp; names and also fill up the NA data point if any. After data processing stage we are left with coordinates only.</p>
+
+<p>Something like:(<strong>Table 3</strong>)</p>
+
+<table>
+<thead>
+<tr>
+<th> <strong>Latitude</strong>   </th>
+<th> <strong>Longitude</strong>  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>___________________</td>
+<td>___________</td>
+</tr>
+<tr>
+<td> 26.8466937 </td>
+<td> 80.946166  </td>
+</tr>
+<tr>
+<td> 26.8466937 </td>
+<td> 80.946166  </td>
+</tr>
+<tr>
+<td> 26.8466937 </td>
+<td> 80.946166  </td>
+</tr>
+<tr>
+<td> 26.8906639 </td>
+<td> 80.9670749 </td>
+</tr>
+<tr>
+<td> 26.8658443 </td>
+<td> 80.9104684 </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Clustering</h2>
+
+<p>Next step in this quest to find a frugal method for home delivery comes with the clustering of restaurants into similar geographical regions.And what is a better method then K-Means to achieve that.But there is a problem with K-Means for this dataset and it fails giving NA values as the cluster centroids, if <code>K&gt;4</code>.</p>
+
+<p>This is a serious issue pretaining to K-Means therefore I somehow settled for <strong>&lsquo;Bi-KMeans&rsquo;</strong> or <strong>Bisecting KMeans</strong> clustering algorithm which is a little different form the traditional K-means algorithm in following ways.</p>
+
+<p>k-means sometimes gives poor results if it is caught in a local minimum.Therfore
+another algorithms called bisecting k-means is developed. It starts with choosing one random centroid and distance from all the points is calculated as sum of square error or <strong>SSE</strong>. While number of centroids are less then <strong>K</strong>(user defined number of clusters) algorithms recursively splits the above cluster into many clusters based on the least SSE error for the split.</p>
+
+<p>After aplying Bisecting K-means clustering algorithm(<a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/biKMeans.py">Github-BiKmeans.py</a>) to the data in Table3 we get another list of data points with two features &ldquo;<strong>the cluster they belong to</strong>&rdquo; and &ldquo;<strong>distance from corresponding centroid</strong>&rdquo; . A sample data from after transformation :</p>
+
+<table>
+<thead>
+<tr>
+<th> Cluster </th>
+<th>  SSE or distance </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_________</td>
+<td>__________________ </td>
+</tr>
+<tr>
+<td> 8       </td>
+<td> 0.5886538506     </td>
+</tr>
+<tr>
+<td> 3       </td>
+<td> 0.0241409154     </td>
+</tr>
+<tr>
+<td> 3       </td>
+<td> 0.0107502713     </td>
+</tr>
+<tr>
+<td> 3       </td>
+<td> 0.0107502713     </td>
+</tr>
+<tr>
+<td> 7       </td>
+<td> 0.2401804062     </td>
+</tr>
+<tr>
+<td> 0       </td>
+<td> 0.1848409829     </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Results and Visualizations</h2>
+
+<p><a href="Generate%20custom%20maps%20using%20your%20coordinates%20in%20Excel!">Hamstermap</a> is a beautiful online tool for plotting map coordinates but since it accepts a specific format we need to do a little Data munging for that. A python script(<a href="https://github.com/vivekmishra1991/FrugalKMeans/blob/master/frugalKmeans/frugalKmeans.py">frugalKmeans.py</a>) I have written does the same very efficiently .After transforming the data with above script we are left with the following list of <a href="https://github.com/vivekmishra1991/FrugalKMeans/tree/master/frugalKmeans/hamstermap">data points</a> :</p>
+
+<table>
+<thead>
+<tr>
+<th> latitude   </th>
+<th> longitude  </th>
+<th> marker  </th>
+<th> color  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_____________</td>
+<td>____________</td>
+<td>_________</td>
+<td>________</td>
+</tr>
+<tr>
+<td> 26.8466937 </td>
+<td> 80.946166  </td>
+<td> circle1 </td>
+<td> blue   </td>
+</tr>
+<tr>
+<td> 26.8466937 </td>
+<td> 80.946166  </td>
+<td> circle1 </td>
+<td> blue   </td>
+</tr>
+<tr>
+<td> 26.8906639 </td>
+<td> 80.9670749 </td>
+<td> circle1 </td>
+<td> blue   </td>
+</tr>
+<tr>
+<td> 26.8658443 </td>
+<td> 80.9104684 </td>
+<td> circle1 </td>
+<td> orange </td>
+</tr>
+<tr>
+<td> 26.8453894 </td>
+<td> 80.9456421 </td>
+<td> circle1 </td>
+<td> blue   </td>
+</tr>
+<tr>
+<td> 26.8466937 </td>
+<td> 80.946166  </td>
+<td> circle1 </td>
+<td> blue   </td>
+</tr>
+<tr>
+<td> 26.8466937 </td>
+<td> 80.946166  </td>
+<td> circle1 </td>
+<td> blue   </td>
+</tr>
+<tr>
+<td> 26.8532449 </td>
+<td> 80.9965217 </td>
+<td> circle1 </td>
+<td> black  </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Exporting this to Hamstermap and plotting the required coordinates gives the centroids(where delivery boys should be stationed) and respective restaurants they would service from.</p>
+
+<p>After some exploratory data-analysis we come up with following map.<img src="/./assets/result.jpg" alt="Optimal Points to cover entire Lucknow delivery space" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   <div class="pagination">
     
