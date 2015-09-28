@@ -4,7 +4,7 @@
   <title><![CDATA[Data Quest]]></title>
   <link href="http://vivekmishra1991.github.io/atom.xml" rel="self"/>
   <link href="http://vivekmishra1991.github.io/"/>
-  <updated>2015-09-24T14:19:59+01:00</updated>
+  <updated>2015-09-28T21:37:22+01:00</updated>
   <id>http://vivekmishra1991.github.io/</id>
   <author>
     <name><![CDATA[Vivek Mishra]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[AdaBoost : Why It Is Robust to Overfitting]]></title>
+    <link href="http://vivekmishra1991.github.io/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting/"/>
+    <updated>2015-09-28T16:49:29+01:00</updated>
+    <id>http://vivekmishra1991.github.io/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting</id>
+    <content type="html"><![CDATA[<h2>Introduction</h2>
+
+<h4>Bagging vs. Boosting</h4>
+
+<p>There are two reasons for errors in an estimator namely variance or bias.A too complex model(<em>unpruned decision trees</em>) have high variance but low bias  whereas a too simple model( <em>Weak learners like decision stumps</em> ) have high bias but low variance.To minimize these two types of errors two different approaches are required namely <em>bagging</em>(complex models/high variance) and <em>boosting</em>(simple models/high bias). </br>
+In more general terms bagging also known as <em>bootstrap aggregating</em> tries to build complex models over many bootstrapped samples from the same distribution(datasets) and gives simpler but more robust model either by simple averaging or majority voting over former complex models.Whereas boosting is an approach of ensembling strong learners from weak learners simply by improving over the misclassified labels from dataset in a finite number of iterations.In this blog we will try to shed some light over the learning approach of boosting meta-algorithm .</p>
+
+<h2>AdaBoost</h2>
+
+<h4>Weak Learners And Boosting</h4>
+
+<p>In 1988 Michael Kearns remarked whether one can boost a weak learner to a strong learner which was answered by a <a href="http://www.cs.princeton.edu/~schapire/papers/strengthofweak.pdf">remarkable paper</a> by Rob Schapire published in 1990. Thereby paving a way for a novel approach of utilizing the power of a weak learners two give a better , versatile and more robust strong learners.<strong>Yoav Freund</strong> and <strong>Robert Schapire</strong> came together  to work on a much strong &amp; refined meta-algorithm called AdaBoost or <em>Adaptive Boosting</em> which won them the prestigious Gödel Prize in 2003.But before we dive into realms of Adaboost algorithm we need to have a clear understanding of what a weak learner is.</br>
+    By weak I mean that classifier does a better job at classifying than randomly guessing but not by much i.e. it classifies  slightly better than 50% of the correct labels in the sample outputs.A weak classifer could be a simple decision stump(<em>A stump is a two-node tree, after a single split.</em>) C4.5 and ID3 generated decision trees are also perform well as weak learners for adaboost.</p>
+
+<h4>Algorithm</h4>
+
+<p><img src="http://vivekmishra1991.github.io/./assets/adaboost/algo.jpg" alt="Adaboost Algorithm" /></p>
+
+<ol>
+<li>If there are N datum in the dataset then initially we distribute equal weights to all datapoints (wi=1/N).</br></li>
+<li>We take <strong>M</strong> iterations from <strong>m=1 to M</strong> and for each <em>m</em></br>
+a) Fit a weak classifier to the training data using above weights.</br>
+b) <em>err</em> is calculated as weighted average of mis-classified dataum </br>
+c) <em>alpha</em> for each iteration is calculated. <em>err</em> must be less then 0.5 ,i.e. weak learners should be better than random guesses, for alpha>1.<br>
+d) exp(Indicator function(I)) gives 1 when I=0 hence weight remain unchanged else when I=1 weight is readjusted(increases) to <em>weight*alpha</em>.</br></li>
+<li>Now new classifier is weighted sum of on each M iterations' alpha value and classifier output.</li>
+</ol>
+
+
+<p><img src="http://vivekmishra1991.github.io/./assets/adaboost/schematic.jpg" alt="schematic representation" /><em> <strong>Fig-2</strong> Schematic representation of AdaBoost; with the dataset on the left side,the different widths of the bars represent weights applied to each instance. The weighted predictions pass through a classifier, which is then weighted by the triangles (alpha values). The weighted output of each triangle is summed up in the circle, which produces the final output.</em>
+<strong>Source</strong>:MLIA-Peter Harrington</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[FrugalKmeans: Restaurants' Home Delivery Route Optimizer]]></title>
