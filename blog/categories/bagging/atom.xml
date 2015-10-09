@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Bagging | Data Quest]]></title>
+  <link href="http://vivekmishra1991.github.io/blog/categories/bagging/atom.xml" rel="self"/>
+  <link href="http://vivekmishra1991.github.io/"/>
+  <updated>2015-10-09T18:20:23+01:00</updated>
+  <id>http://vivekmishra1991.github.io/</id>
+  <author>
+    <name><![CDATA[Vivek Mishra]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Random Forest : And How Its Better Than Bagging]]></title>
+    <link href="http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric/"/>
+    <updated>2015-10-09T15:53:58+01:00</updated>
+    <id>http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric</id>
+    <content type="html"><![CDATA[<h3>Randomforests And Bootstrap Aggregating</h3>
+
+<p>As we know in simple averaging methods RFs perform better than Bootstrap Aggregating or <em>bagging</em> by considerably reducing the high variance (see <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance tradeoff</a>) of a single classifier by continuously independent sampling with replacement from the same distribution(dataset). This performance gain of RFs is described very well in <a href="http://machinelearning202.pbworks.com/w/file/fetch/60606349/breiman_randomforests.pdf">this</a> Leo Breiman(2001) paper and also in <a href="http://www-stat.stanford.edu/~tibs/ElemStatLearn/">The Elements of Statistical Learning : Hastie,Tibshirani,Friedman </a> in the section RandomForests.</p>
+
+<p>I will briefly describe the idea of performance gain in Rfs over bagging here.Since in both the ensembling methods a single classifier(decision trees) ,which is very prone to high variance, when makes use of all the available features,it tends to over-fit since a more complex tree dependence structure is generated. Averaging over different classifiers over different data sample decreases the over-all complexity of the final ensembledmodel. But including all the feature is not a good idea,since all the features might not help much in overall information gain for individual classifier and many a time can prove a source of noise.To overcome this problem <strong>L. Breiman</strong> proposed the idea of selecting features randomly of some predefined number of features..</p>
+
+<h3>Code</h3>
+
+<pre><code>from collections import OrderedDict
+from sklearn.datasets import load_boston
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import BaggingClassifier
+from sklearn.datasets import make_classification
+
+
+import matplotlib.pyplot as plt
+
+RANDOM=123
+
+# Generate a binary classification dataset.
+boston = load_boston()
+X= boston.data
+#y= boston.target
+y= np.array(boston.target).astype(str)
+
+
+ensemble_clfs=[("RandomForestClassifier",RandomForestClassifier(warm_start=True, oob_score=True,
+                               max_features="sqrt",
+                               random_state=RANDOM)), 
+               ("BaggingClassifier", BaggingClassifier(
+                              oob_score=True,
+                              random_state=RANDOM) 
+               )
+
+             ]
+
+#initialize error rate dictionary 
+error_rate = OrderedDict((label, []) for label, _ in ensemble_clfs)
+
+#Required Params
+max_est = 100
+min_est = 10
+
+#label="RandomForestClassifier max_feat=sqrt(p)"
+for label,clf in ensemble_clfs:
+    for i in range( min_est, max_est + 1 ):
+        clf.set_params( n_estimators = i )
+        clf.fit( X, y )
+        #Out_of_bag Score(OOB score)
+        oob_err=1-clf.oob_score_
+        error_rate[label].append((i,oob_err))
+
+#print oob_err_list vs ensemble classifier
+for label,ensemble_err in error_rate.items():
+        Xn_est,Yoob_err=zip(*ensemble_err)
+        plt.plot(Xn_est,Yoob_err,label=label)    
+
+
+
+
+plt.xlim(min_est, max_est)
+plt.xlabel("n_estimators")
+plt.ylabel("OOB error rate")
+plt.legend(loc="upper right")
+plt.show()
+</code></pre>
+
+<h3>OOb_Score Vs n_estimators Plot</h3>
+
+<p><img src="/./assets/rf_bagging/img.png" alt="Figure1" /></p>
+
+<p>In the above plot we tried to plot <strong>out-of-bag error</strong>(error estimated over currently ensembled classifier with data point not in dataset) on Y-axis and X-axis shows <em>&ldquo;n_estimator&rdquo;</em> which describes the number of estimator ensembled till now . As the number of estimator increase overall variance reduces for both the ensembling methods. But Random Forest is the clear winner all the way while growing the forest where #Tress equals 100.
+This shows how random feature selection generalizes the final model and reduces over-fitting and variance than choosing all the features.</p>
+]]></content>
+  </entry>
+  
+</feed>

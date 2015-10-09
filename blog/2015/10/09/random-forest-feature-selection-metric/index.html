@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Random Forest : And How Its Better Than Bagging - Data Quest</title>
+  <meta name="author" content="Vivek Mishra">
+
+  
+  <meta name="description" content="Randomforests And Bootstrap Aggregating As we know in simple averaging methods RFs perform better than Bootstrap Aggregating or bagging by &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Data Quest" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-52923778-3']);
+    _gaq.push(['_setDomainName','github.io']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Data Quest</a></h1>
+  
+    <h2>A Data Science Blog.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="vivekmishra1991.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/projects">Projects</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Random Forest : And How Its Better Than Bagging</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-09T15:53:58+01:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:53 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://vivekmishra1991.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Randomforests And Bootstrap Aggregating</h3>
+
+<p>As we know in simple averaging methods RFs perform better than Bootstrap Aggregating or <em>bagging</em> by considerably reducing the high variance (see <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance tradeoff</a>) of a single classifier by continuously independent sampling with replacement from the same distribution(dataset). This performance gain of RFs is described very well in <a href="http://machinelearning202.pbworks.com/w/file/fetch/60606349/breiman_randomforests.pdf">this</a> Leo Breiman(2001) paper and also in <a href="http://www-stat.stanford.edu/~tibs/ElemStatLearn/">The Elements of Statistical Learning : Hastie,Tibshirani,Friedman </a> in the section RandomForests.</p>
+
+<p>I will briefly describe the idea of performance gain in Rfs over bagging here.Since in both the ensembling methods a single classifier(decision trees) ,which is very prone to high variance, when makes use of all the available features,it tends to over-fit since a more complex tree dependence structure is generated. Averaging over different classifiers over different data sample decreases the over-all complexity of the final ensembledmodel. But including all the feature is not a good idea,since all the features might not help much in overall information gain for individual classifier and many a time can prove a source of noise.To overcome this problem <strong>L. Breiman</strong> proposed the idea of selecting features randomly of some predefined number of features..</p>
+
+<h3>Code</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from collections import OrderedDict
+</span><span class='line'>from sklearn.datasets import load_boston
+</span><span class='line'>import numpy as np
+</span><span class='line'>from sklearn.ensemble import RandomForestClassifier
+</span><span class='line'>from sklearn.ensemble import BaggingClassifier
+</span><span class='line'>from sklearn.datasets import make_classification
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>import matplotlib.pyplot as plt
+</span><span class='line'>
+</span><span class='line'>RANDOM=123
+</span><span class='line'>
+</span><span class='line'># Generate a binary classification dataset.
+</span><span class='line'>boston = load_boston()
+</span><span class='line'>X= boston.data
+</span><span class='line'>#y= boston.target
+</span><span class='line'>y= np.array(boston.target).astype(str)
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>ensemble_clfs=[("RandomForestClassifier",RandomForestClassifier(warm_start=True, oob_score=True,
+</span><span class='line'>                               max_features="sqrt",
+</span><span class='line'>                               random_state=RANDOM)), 
+</span><span class='line'>               ("BaggingClassifier", BaggingClassifier(
+</span><span class='line'>                              oob_score=True,
+</span><span class='line'>                              random_state=RANDOM) 
+</span><span class='line'>               )
+</span><span class='line'>               
+</span><span class='line'>             ]
+</span><span class='line'>
+</span><span class='line'>#initialize error rate dictionary 
+</span><span class='line'>error_rate = OrderedDict((label, []) for label, _ in ensemble_clfs)
+</span><span class='line'>
+</span><span class='line'>#Required Params
+</span><span class='line'>max_est = 100
+</span><span class='line'>min_est = 10
+</span><span class='line'>
+</span><span class='line'>#label="RandomForestClassifier max_feat=sqrt(p)"
+</span><span class='line'>for label,clf in ensemble_clfs:
+</span><span class='line'>    for i in range( min_est, max_est + 1 ):
+</span><span class='line'>        clf.set_params( n_estimators = i )
+</span><span class='line'>        clf.fit( X, y )
+</span><span class='line'>        #Out_of_bag Score(OOB score)
+</span><span class='line'>        oob_err=1-clf.oob_score_
+</span><span class='line'>        error_rate[label].append((i,oob_err))
+</span><span class='line'>
+</span><span class='line'>#print oob_err_list vs ensemble classifier
+</span><span class='line'>for label,ensemble_err in error_rate.items():
+</span><span class='line'>        Xn_est,Yoob_err=zip(*ensemble_err)
+</span><span class='line'>        plt.plot(Xn_est,Yoob_err,label=label)    
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>plt.xlim(min_est, max_est)
+</span><span class='line'>plt.xlabel("n_estimators")
+</span><span class='line'>plt.ylabel("OOB error rate")
+</span><span class='line'>plt.legend(loc="upper right")
+</span><span class='line'>plt.show()
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>OOb_Score Vs n_estimators Plot</h3>
+
+<p><img src="/./assets/rf_bagging/img.png" alt="Figure1" /></p>
+
+<p>In the above plot we tried to plot <strong>out-of-bag error</strong>(error estimated over currently ensembled classifier with data point not in dataset) on Y-axis and X-axis shows <em>&ldquo;n_estimator&rdquo;</em> which describes the number of estimator ensembled till now . As the number of estimator increase overall variance reduces for both the ensembling methods. But Random Forest is the clear winner all the way while growing the forest where #Tress equals 100.
+This shows how random feature selection generalizes the final model and reduces over-fitting and variance than choosing all the features.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Vivek Mishra</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-09T15:53:58+01:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:53 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bagging/'>bagging</a>, <a class='category' href='/blog/categories/ensembles/'>ensembles</a>, <a class='category' href='/blog/categories/feature-selection/'>feature selection</a>, <a class='category' href='/blog/categories/random-forest/'>random forest</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric/" data-via="vivekmishra1991" data-counturl="http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting/" title="Previous Post: AdaBoost : Why it is robust to overfitting">&laquo; AdaBoost : Why it is robust to overfitting</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/random-forest-feature-selection-metric/">Random Forest : And How Its Better Than Bagging</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting/">AdaBoost : Why It Is Robust to Overfitting</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/">FrugalKmeans: Restaurants' Home Delivery Route Optimizer</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/vivekmishra1991">@vivekmishra1991</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'vivekmishra1991',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Vivek Mishra -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'vivekmishra1991';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric/';
+        var disqus_url = 'http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

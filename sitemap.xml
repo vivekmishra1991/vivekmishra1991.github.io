@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric/</loc>
+    <lastmod>2015-10-09T15:53:58+01:00</lastmod>
+  </url>
+  <url>
     <loc>http://vivekmishra1991.github.io/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting/</loc>
     <lastmod>2015-09-28T16:49:29+01:00</lastmod>
   </url>
@@ -28,5 +32,17 @@
   </url>
   <url>
     <loc>http://vivekmishra1991.github.io/blog/categories/clustering/</loc>
+  </url>
+  <url>
+    <loc>http://vivekmishra1991.github.io/blog/categories/ensembles/</loc>
+  </url>
+  <url>
+    <loc>http://vivekmishra1991.github.io/blog/categories/bagging/</loc>
+  </url>
+  <url>
+    <loc>http://vivekmishra1991.github.io/blog/categories/random-forest/</loc>
+  </url>
+  <url>
+    <loc>http://vivekmishra1991.github.io/blog/categories/feature-selection/</loc>
   </url>
 </urlset>

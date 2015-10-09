@@ -9,7 +9,7 @@
   <meta name="author" content="Vivek Mishra">
 
   
-  <meta name="description" content="All Posts AdaBoost : Why It Is Robust to Overfitting Introduction Bagging vs. Boosting There are two reasons for errors in an estimator namely &hellip;">
+  <meta name="description" content="All Posts Random Forest : And How Its Better Than Bagging Randomforests And Bootstrap Aggregating As we know in simple averaging methods RFs perform &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,193 @@
 
   <div class="article-list">
     <div class="container">
+      
+      
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <article>
+  <h2><a href="/blog/2015/10/09/random-forest-feature-selection-metric/">Random Forest : And How Its Better Than Bagging</a></h2>
+  
+  <p>
+    <h3>Randomforests And Bootstrap Aggregating</h3>
+
+
+
+
+<p>As we know in simple averaging methods RFs perform better than Bootstrap Aggregating or <em>bagging</em> by considerably reducing the high variance (see <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance tradeoff</a>) of a single classifier by continuously independent sampling with replacement from the same distribution(dataset). This performance gain of RFs is described very well in <a href="http://machinelearning202.pbworks.com/w/file/fetch/60606349/breiman_randomforests.pdf">this</a> Leo Breiman(2001) paper and also in <a href="http://www-stat.stanford.edu/~tibs/ElemStatLearn/">The Elements of Statistical Learning : Hastie,Tibshirani,Friedman </a> in the section RandomForests.</p>
+
+
+
+
+<p>I will briefly describe the idea of performance gain in Rfs over bagging here.Since in both the ensembling methods a single classifier(decision trees) ,which is very prone to high variance, when makes use of all the available features,it tends to over-fit since a more complex tree dependence structure is generated. Averaging over different classifiers over different data sample decreases the over-all complexity of the final ensembledmodel. But including all the feature is not a good idea,since all the features might not help much in overall information gain for individual classifier and many a time can prove a source of noise.To overcome this problem <strong>L. Breiman</strong> proposed the idea of selecting features randomly of some predefined number of features..</p>
+
+
+
+
+<h3>Code</h3>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>from collections import OrderedDict
+</span><span class='line'>from sklearn.datasets import load_boston
+</span><span class='line'>import numpy as np
+</span><span class='line'>from sklearn.ensemble import RandomForestClassifier
+</span><span class='line'>from sklearn.ensemble import BaggingClassifier
+</span><span class='line'>from sklearn.datasets import make_classification
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>import matplotlib.pyplot as plt
+</span><span class='line'>
+</span><span class='line'>RANDOM=123
+</span><span class='line'>
+</span><span class='line'># Generate a binary classification dataset.
+</span><span class='line'>boston = load_boston()
+</span><span class='line'>X= boston.data
+</span><span class='line'>#y= boston.target
+</span><span class='line'>y= np.array(boston.target).astype(str)
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>ensemble_clfs=[("RandomForestClassifier",RandomForestClassifier(warm_start=True, oob_score=True,
+</span><span class='line'>                               max_features="sqrt",
+</span><span class='line'>                               random_state=RANDOM)), 
+</span><span class='line'>               ("BaggingClassifier", BaggingClassifier(
+</span><span class='line'>                              oob_score=True,
+</span><span class='line'>                              random_state=RANDOM) 
+</span><span class='line'>               )
+</span><span class='line'>               
+</span><span class='line'>             ]
+</span><span class='line'>
+</span><span class='line'>#initialize error rate dictionary 
+</span><span class='line'>error_rate = OrderedDict((label, []) for label, _ in ensemble_clfs)
+</span><span class='line'>
+</span><span class='line'>#Required Params
+</span><span class='line'>max_est = 100
+</span><span class='line'>min_est = 10
+</span><span class='line'>
+</span><span class='line'>#label="RandomForestClassifier max_feat=sqrt(p)"
+</span><span class='line'>for label,clf in ensemble_clfs:
+</span><span class='line'>    for i in range( min_est, max_est + 1 ):
+</span><span class='line'>        clf.set_params( n_estimators = i )
+</span><span class='line'>        clf.fit( X, y )
+</span><span class='line'>        #Out_of_bag Score(OOB score)
+</span><span class='line'>        oob_err=1-clf.oob_score_
+</span><span class='line'>        error_rate[label].append((i,oob_err))
+</span><span class='line'>
+</span><span class='line'>#print oob_err_list vs ensemble classifier
+</span><span class='line'>for label,ensemble_err in error_rate.items():
+</span><span class='line'>        Xn_est,Yoob_err=zip(*ensemble_err)
+</span><span class='line'>        plt.plot(Xn_est,Yoob_err,label=label)    
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>plt.xlim(min_est, max_est)
+</span><span class='line'>plt.xlabel("n_estimators")
+</span><span class='line'>plt.ylabel("OOB error rate")
+</span><span class='line'>plt.legend(loc="upper right")
+</span><span class='line'>plt.show()
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>OOb_Score Vs n_estimators Plot</h3>
+
+
+
+
+<p><img src="/./assets/rf_bagging/img.png" alt="Figure1" /></p>
+
+
+
+
+<p>In the above plot we tried to plot <strong>out-of-bag error</strong>(error estimated over currently ensembled classifier with data point not in dataset) on Y-axis and X-axis shows <em>&ldquo;n_estimator&rdquo;</em> which describes the number of estimator ensembled till now . As the number of estimator increase overall variance reduces for both the ensembling methods. But Random Forest is the clear winner all the way while growing the forest where #Tress equals 100.
+This shows how random feature selection generalizes the final model and reduces over-fitting and variance than choosing all the features.</p>
+
+
+  </p>
+  <span class="meta">
+    written 
+
+
+
+
+<time class='entry-date' datetime='2015-10-09T15:53:58+01:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:53 pm</span></time>
+    
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bagging/'>bagging</a>, <a class='category' href='/blog/categories/ensembles/'>ensembles</a>, <a class='category' href='/blog/categories/feature-selection/'>feature selection</a>, <a class='category' href='/blog/categories/random-forest/'>random forest</a>
+  
+</span>
+
+
+  </span>
+
+  
+</article>
+
+        </div>
+      </div>
       
       
       <div class="row">
