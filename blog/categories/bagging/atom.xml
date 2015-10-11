@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bagging | Data Quest]]></title>
   <link href="http://vivekmishra1991.github.io/blog/categories/bagging/atom.xml" rel="self"/>
   <link href="http://vivekmishra1991.github.io/"/>
-  <updated>2015-10-11T22:59:39+01:00</updated>
+  <updated>2015-10-11T23:06:10+01:00</updated>
   <id>http://vivekmishra1991.github.io/</id>
   <author>
     <name><![CDATA[Vivek Mishra]]></name>
@@ -26,7 +26,7 @@
 
 <h3>Code</h3>
 
-<p>In the following code snippet, oob error is calculated for each estimator being added to the classifier being grown on <em>Boston_housing_data</em> and a graph is plotted on matplotlib for the same.</p>
+<p>In the following code snippet, oob error is calculated for each estimator being added to the classifier grown on <em>Boston_housing_data</em> and a graph is plotted on matplotlib for the same.</p>
 
 <p><strong>Note</strong> : I have used sqrt(Number of features) as <em>max_feature</em> which is the recommended number of features to be sampled from the distribution.</p>
 
