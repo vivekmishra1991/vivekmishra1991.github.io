@@ -15,6 +15,10 @@ I will briefly describe the idea of performance gain in Rfs over bagging here.Si
         
 ###Code
 
+In the following code snippet, oob error is calculated for each estimator being added to the classifier being grown on _Boston_housing_data_ and a graph is plotted on matplotlib for the same.  
+
+**Note** : I have used sqrt(Number of features) as _max\_feature_ which is the recommended number of features to be sampled from the distribution.
+
 ```
 from collections import OrderedDict
 from sklearn.datasets import load_boston
@@ -26,7 +30,7 @@ from sklearn.datasets import make_classification
 
 import matplotlib.pyplot as plt
 
-RANDOM=123
+RAND=123
 
 # Generate a binary classification dataset.
 boston = load_boston()
@@ -37,10 +41,10 @@ y= np.array(boston.target).astype(str)
 
 ensemble_clfs=[("RandomForestClassifier",RandomForestClassifier(warm_start=True, oob_score=True,
                                max_features="sqrt",
-                               random_state=RANDOM)), 
+                               random_state=RAND)), 
                ("BaggingClassifier", BaggingClassifier(
                               oob_score=True,
-                              random_state=RANDOM) 
+                              random_state=RAND) 
                )
                
              ]
@@ -52,7 +56,6 @@ error_rate = OrderedDict((label, []) for label, _ in ensemble_clfs)
 max_est = 100
 min_est = 10
 
-#label="RandomForestClassifier max_feat=sqrt(p)"
 for label,clf in ensemble_clfs:
     for i in range( min_est, max_est + 1 ):
         clf.set_params( n_estimators = i )
