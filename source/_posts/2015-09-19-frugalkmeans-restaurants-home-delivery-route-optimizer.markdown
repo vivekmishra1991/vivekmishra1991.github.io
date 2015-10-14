@@ -12,6 +12,7 @@ What if I could reduce the home delivery cost of restaurants around my city.Mayb
 FrugalKmeans tries to analyze this over my favorite city *Lucknow*,India which is known for its exquisite *Awadhi* Cuisine .
 
 After-all **FRUGALITY IS OPTIMAL**.
+<!-- more -->
 
 ##DATA
 I required **names** and **addresses** of all the restaurants in Lucknow. My only option was scraping data from my favorite food portal. [Scrapy](http://scrapy.org/) an open source scraping tools came very handy in getting the names of all the restaurants.There were whooping *(for non-metro standard) 962* of them in Lucknow. [Github-Scrap ](https://github.com/vivekmishra1991/FrugalKMeans/blob/master/scrap/spiders/frugalMeans.py) has the required scripts & instruction for doing this.
@@ -90,16 +91,16 @@ After aplying Bisecting K-means clustering algorithm([Github-BiKmeans.py](https:
 
 | latitude   | longitude  | marker  | color  | 
 |------------|------------|---------|--------| 
-|_____________|____________|_________|________|
-| 26.8466937 | 80.946166  | circle1 | blue   | 
-| 26.8466937 | 80.946166  | circle1 | blue   | 
-| 26.8906639 | 80.9670749 | circle1 | blue   | 
-| 26.8658443 | 80.9104684 | circle1 | orange | 
-| 26.8453894 | 80.9456421 | circle1 | blue   | 
-| 26.8466937 | 80.946166  | circle1 | blue   | 
-| 26.8466937 | 80.946166  | circle1 | blue   | 
-| 26.8532449 | 80.9965217 | circle1 | black  | 
-
+|_________________|____________|_________|________|
+| 26.8466937      | 80.946166  | circle1 | blue   | 
+| 26.8466937      | 80.946166  | circle1 | blue   | 
+| 26.8906639      | 80.9670749 | circle1 | blue   | 
+| 26.8658443      | 80.9104684 | circle1 | orange | 
+| 26.8453894      | 80.9456421 | circle1 | blue   | 
+| 26.8466937      | 80.946166  | circle1 | blue   | 
+| 26.8466937      | 80.946166  | circle1 | blue   | 
+| 26.8532449      | 80.9965217 | circle1 | black  | 
+	
 Exporting this to Hamstermap and plotting the required coordinates gives the centroids(where delivery boys should be stationed) and respective restaurants they would service from.
 
 After some exploratory data-analysis we come up with following map.![Optimal Points to cover entire Lucknow delivery space]({{site.baseurl}}/./assets/result.jpg	)

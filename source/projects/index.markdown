@@ -23,6 +23,10 @@ footer: true
 **Descp**:Implemented and integrated Routing Information Protocol (**RIP**) of a modular virtual router for Linux kernel 2.6+ written in ‘C’.With tweaks in kernel to manually re-implemented routing in _Kernel Network Stack_.Presented as the Under Graduate Final Year Project.</br> 
 [Froute-RIP_Code-Github](https://github.com/vivekmishra1991/froute)
 
+##MachineLearningAlgos(_2015_)
+**Technology**:Numpy,Python,Ipython-notebook</br>
+**Descp**:A python implementation of basic machine Learning algorithms like SVM(SMO),KNN,CART,K-Means,NaiveBayyes(spam-email Classifier),decision trees etc.</br> 
+[MachineLearningAlgos-Github](https://github.com/vivekmishra1991/MachineLearningAlgos) 
 
 ##SAEB (_2014_)
 **Technology**:Eclipse,Java,AWS,Redis</br>
