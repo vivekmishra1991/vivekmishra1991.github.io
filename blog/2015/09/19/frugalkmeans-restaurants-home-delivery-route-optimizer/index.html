@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>FrugalKmeans: Restaurants' Home Delivery Route Optimizer - Data Quest</title>
+  <title>FrugalKmeans: Restaurants' home delivery route optimizer - Data Quest</title>
   <meta name="author" content="Vivek Mishra">
 
   
@@ -21,20 +21,19 @@
   <link rel="canonical" href="http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Data Quest" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Data Quest" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-52923778-3']);
-    _gaq.push(['_setDomainName','github.io']);
     _gaq.push(['_trackPageview']);
 
     (function() {
@@ -49,10 +48,17 @@
 
 <body   >
   <header role="banner"><hgroup>
+  <div id="logo">
+  	<div id="logoLeft">{</div>
+  	<div id="logoText">sihugh</div>
+  	<div id="logoRight">}</div>
+  	<div class="clear"></div>
+  </div>
   <h1><a href="/">Data Quest</a></h1>
   
     <h2>A Data Science Blog.</h2>
   
+  <div class="clear"></div>
 </hgroup>
 
 </header>
@@ -63,7 +69,7 @@
   
 <form action="https://www.google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="vivekmishra1991.github.io">
+    <input type="hidden" name="q" value="site:vivekmishra1991.github.io" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -82,7 +88,9 @@
   
   <header>
     
-      <h1 class="entry-title">FrugalKmeans: Restaurants' Home Delivery Route Optimizer</h1>
+      
+        <h1 class="entry-title">FrugalKmeans: Restaurants' Home Delivery Route Optimizer</h1>
+      
     
     
       <p class="meta">
@@ -91,10 +99,16 @@
 
 
 
-<time class='entry-date' datetime='2015-09-19T11:41:55+01:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:41 am</span></time>
+
+
+
+
+  
+
+
+<time datetime="2015-09-19T11:41:55+01:00" pubdate data-updated="true"></time>
         
-           | <a href="#disqus_thread"
-             data-disqus-identifier="http://vivekmishra1991.github.io">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
@@ -108,6 +122,9 @@
 <p>FrugalKmeans tries to analyze this over my favorite city <em>Lucknow</em>,India which is known for its exquisite <em>Awadhi</em> Cuisine .</p>
 
 <p>After-all <strong>FRUGALITY IS OPTIMAL</strong>.</p>
+
+<!-- more -->
+
 
 <h2>DATA</h2>
 
@@ -321,55 +338,55 @@ another algorithms called bisecting k-means is developed. It starts with choosin
 </thead>
 <tbody>
 <tr>
-<td>_____________</td>
+<td>_________________</td>
 <td>____________</td>
 <td>_________</td>
 <td>________</td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8906639 </td>
+<td> 26.8906639      </td>
 <td> 80.9670749 </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8658443 </td>
+<td> 26.8658443      </td>
 <td> 80.9104684 </td>
 <td> circle1 </td>
 <td> orange </td>
 </tr>
 <tr>
-<td> 26.8453894 </td>
+<td> 26.8453894      </td>
 <td> 80.9456421 </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8532449 </td>
+<td> 26.8532449      </td>
 <td> 80.9965217 </td>
 <td> circle1 </td>
 <td> black  </td>
@@ -396,7 +413,14 @@ another algorithms called bisecting k-means is developed. It starts with choosin
 
 
 
-<time class='entry-date' datetime='2015-09-19T11:41:55+01:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:41 am</span></time>
+
+
+
+
+  
+
+
+<time datetime="2015-09-19T11:41:55+01:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -410,7 +434,7 @@ another algorithms called bisecting k-means is developed. It starts with choosin
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/" data-via="vivekmishra1991" data-counturl="http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/" data-via="vivekmishra1991" data-counturl="http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/" >Tweet</a>
   
   
   
@@ -420,7 +444,7 @@ another algorithms called bisecting k-means is developed. It starts with choosin
     <p class="meta">
       
       
-        <a class="basic-alignment right" href="/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting/" title="Next Post: AdaBoost : Why it is robust to overfitting">AdaBoost : Why it is robust to overfitting &raquo;</a>
+        <a class="basic-alignment right articlenav" href="/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting/" title="Next Post: AdaBoost : Why it is robust to overfitting">AdaBoost : Why it is robust to overfitting &raquo;</a>
       
     </p>
   </footer>
@@ -464,7 +488,7 @@ another algorithms called bisecting k-means is developed. It starts with choosin
   <a href="https://github.com/vivekmishra1991">@vivekmishra1991</a> on GitHub
   
   <script type="text/javascript">
-    $(document).ready(function(){
+    $.domReady(function(){
         if (!window.jXHR){
             var jxhr = document.createElement('script');
             jxhr.type = 'text/javascript';
@@ -513,7 +537,7 @@ another algorithms called bisecting k-means is developed. It starts with choosin
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -529,7 +553,7 @@ another algorithms called bisecting k-means is developed. It starts with choosin
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

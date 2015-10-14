@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Projects | Data Quest]]></title>
+  <title><![CDATA[Category: projects | Data Quest]]></title>
   <link href="http://vivekmishra1991.github.io/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://vivekmishra1991.github.io/"/>
-  <updated>2015-10-13T22:03:04+01:00</updated>
+  <updated>2015-10-14T20:18:01+01:00</updated>
   <id>http://vivekmishra1991.github.io/</id>
   <author>
     <name><![CDATA[Vivek Mishra]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[FrugalKmeans: Restaurants' Home Delivery Route Optimizer]]></title>
+    <title type="html"><![CDATA[FrugalKmeans: Restaurants' home delivery route optimizer]]></title>
     <link href="http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/"/>
     <updated>2015-09-19T11:41:55+01:00</updated>
     <id>http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer</id>
@@ -25,6 +25,9 @@
 <p>FrugalKmeans tries to analyze this over my favorite city <em>Lucknow</em>,India which is known for its exquisite <em>Awadhi</em> Cuisine .</p>
 
 <p>After-all <strong>FRUGALITY IS OPTIMAL</strong>.</p>
+
+<!-- more -->
+
 
 <h2>DATA</h2>
 
@@ -238,55 +241,55 @@ another algorithms called bisecting k-means is developed. It starts with choosin
 </thead>
 <tbody>
 <tr>
-<td>_____________</td>
+<td>_________________</td>
 <td>____________</td>
 <td>_________</td>
 <td>________</td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8906639 </td>
+<td> 26.8906639      </td>
 <td> 80.9670749 </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8658443 </td>
+<td> 26.8658443      </td>
 <td> 80.9104684 </td>
 <td> circle1 </td>
 <td> orange </td>
 </tr>
 <tr>
-<td> 26.8453894 </td>
+<td> 26.8453894      </td>
 <td> 80.9456421 </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8532449 </td>
+<td> 26.8532449      </td>
 <td> 80.9965217 </td>
 <td> circle1 </td>
 <td> black  </td>

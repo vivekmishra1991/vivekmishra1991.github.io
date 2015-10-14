@@ -4,7 +4,7 @@
   <title><![CDATA[Data Quest]]></title>
   <link href="http://vivekmishra1991.github.io/atom.xml" rel="self"/>
   <link href="http://vivekmishra1991.github.io/"/>
-  <updated>2015-10-13T22:03:04+01:00</updated>
+  <updated>2015-10-14T20:18:01+01:00</updated>
   <id>http://vivekmishra1991.github.io/</id>
   <author>
     <name><![CDATA[Vivek Mishra]]></name>
@@ -14,19 +14,22 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Random Forest : And How Its Better Than Bagging]]></title>
+    <title type="html"><![CDATA[Random Forest :And How its better than bagging]]></title>
     <link href="http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric/"/>
     <updated>2015-10-09T15:53:58+01:00</updated>
     <id>http://vivekmishra1991.github.io/blog/2015/10/09/random-forest-feature-selection-metric</id>
     <content type="html"><![CDATA[<h3>Randomforests And Bootstrap Aggregating</h3>
 
-<p>As we know in simple averaging methods RFs perform better than Bootstrap Aggregating or <em>bagging</em> by considerably reducing the high variance (see <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance tradeoff</a>) of a single classifier by continuously independent sampling with replacement from the same distribution(dataset). This performance gain of RFs is described very well in <a href="http://machinelearning202.pbworks.com/w/file/fetch/60606349/breiman_randomforests.pdf">this</a> Leo Breiman(2001) paper and also in <a href="http://www-stat.stanford.edu/~tibs/ElemStatLearn/">The Elements of Statistical Learning : Hastie,Tibshirani,Friedman </a> in the section RandomForests.</p>
+<p>As we know in simple averaging methods RFs perform better than Bootstrap Aggregating or <em>bagging</em> by considerably reducing the high variance (see <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance tradeoff</a>) of a single classifier by continuous independent sampling with replacement from the same distribution(dataset). This performance gain of RFs is described very well in <a href="http://machinelearning202.pbworks.com/w/file/fetch/60606349/breiman_randomforests.pdf">this</a> Leo Breiman(2001) paper and also in <a href="http://www-stat.stanford.edu/~tibs/ElemStatLearn/">The Elements of Statistical Learning : Hastie,Tibshirani,Friedman </a> in the section RandomForests.</p>
 
-<p>I will briefly describe the idea of performance gain in Rfs over bagging here.Since in both the ensembling methods a single classifier(decision trees) ,which is very prone to high variance, when makes use of all the available features,it tends to over-fit since a more complex tree dependence structure is generated. Averaging over different classifiers over different data sample decreases the over-all complexity of the final ensembledmodel. But including all the feature is not a good idea,since all the features might not help much in overall information gain for individual classifier and many a time can prove a source of noise.To overcome this problem <strong>L. Breiman</strong> proposed the idea of selecting features randomly of some predefined number of features..</p>
+<p>I will briefly describe the idea of performance gain in Rfs over bagging here.Since in both the ensembling methods a single classifier(decision trees) ,which is very prone to high variance, when makes use of all the available features,it tends to over-fit since a more complex tree dependence structure is generated. Averaging over different classifiers, with low collinearity among them, decreases the over-all complexity of the final ensembled model. But including all the feature is not a good idea,since all the features might not help much in overall information gain for individual classifier and many a time can prove to be a source of noise.To overcome this problem <strong>L. Breiman</strong> proposed the idea of selecting features randomly from some fixed number of features..</p>
+
+<!-- more -->
+
 
 <h3>Code</h3>
 
-<p>In the following code snippet, oob error is calculated for each estimator being added to the classifier grown on <em>Boston_housing_data</em> and a graph is plotted on matplotlib for the same.</p>
+<p>In the following code snippet, oob error is calculated for each estimator that is being added to the classifier grown on <em>Boston_housing_data</em> and a graph is plotted on matplotlib for the same.</p>
 
 <p><strong>Note</strong> : I have used sqrt(Number of features) as <em>max_feature</em> which is the recommended number of features to be sampled from the distribution.</p>
 
@@ -151,13 +154,15 @@
 
 <p><img src="http://vivekmishra1991.github.io/./assets/rf_bagging/img.png" alt="Figure1" /></p>
 
-<p>In the above plot we tried to plot <strong>out-of-bag error</strong>(error estimated over currently ensembled classifier with data point not in dataset) on Y-axis and X-axis shows <em>&ldquo;n_estimator&rdquo;</em> which describes the number of estimator ensembled till now . As the number of estimator increase overall variance reduces for both the ensembling methods. But Random Forest is the clear winner all the way while growing the forest where #Tress equals 100.
+<p>In the above plot we tried to plot <strong>out-of-bag error</strong>(error estimated over currently ensembled classifiers with data point not in dataset or out of the bag) on Y-axis and X-axis shows <em>&ldquo;n_estimator&rdquo;</em> which describes the number of estimator ensembled till now . As the number of estimator increase overall variance reduces for both the ensembling methods. But Random Forest is the clear winner all the way while growing the forest where #Tress equals 100.
 This shows how random feature selection generalizes the final model and reduces over-fitting and variance than choosing all the features.</p>
+
+<p>Also remember,the performance of RFs is very much dependent upon the collinearity between the  estimators being grown for the forests.Lesser the collinearity ,better is the performance of the estimator.</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[AdaBoost : Why It Is Robust to Overfitting]]></title>
+    <title type="html"><![CDATA[AdaBoost : Why it is robust to overfitting]]></title>
     <link href="http://vivekmishra1991.github.io/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting/"/>
     <updated>2015-09-28T16:49:29+01:00</updated>
     <id>http://vivekmishra1991.github.io/blog/2015/09/28/adaboost-why-it-is-robust-to-overfitting</id>
@@ -168,12 +173,15 @@ This shows how random feature selection generalizes the final model and reduces 
 <p>There are two reasons for errors in an estimator namely variance or bias.A too complex model(<em>unpruned decision trees</em>) have high variance but low bias  whereas a too simple model( <em>Weak learners like decision stumps</em> ) have high bias but low variance.To minimize these two types of errors two different approaches are required namely <em>bagging</em>(complex models/high variance) and <em>boosting</em>(simple models/high bias). </br>
 In more general terms bagging also known as <em>bootstrap aggregating</em> tries to build complex models over many bootstrapped samples from the same distribution(datasets) and gives simpler but more robust model either by simple averaging or majority voting over former complex models.Whereas boosting is an approach of ensembling strong learners from weak learners simply by improving over the misclassified labels from dataset in a finite number of iterations.In this blog we will try to shed some light over the learning approach of boosting meta-algorithm .</p>
 
+<!-- more -->
+
+
 <h2>AdaBoost</h2>
 
 <h4>Weak Learners And Boosting</h4>
 
 <p>In 1988 Michael Kearns remarked whether one can boost a weak learner to a strong learner which was answered by a <a href="http://www.cs.princeton.edu/~schapire/papers/strengthofweak.pdf">remarkable paper</a> by Rob Schapire published in 1990. Thereby paving a way for a novel approach of utilizing the power of a weak learners two give a better , versatile and more robust strong learners.<strong>Yoav Freund</strong> and <strong>Robert Schapire</strong> came together  to work on a much strong &amp; refined meta-algorithm called AdaBoost or <em>Adaptive Boosting</em> which won them the prestigious Gödel Prize in 2003.But before we dive into realms of Adaboost algorithm we need to have a clear understanding of what a weak learner is.</br>
-    By weak I mean that classifier does a better job at classifying than randomly guessing but not by much i.e. it classifies  slightly better than 50% of the correct labels in the sample outputs.A weak classifer could be a simple decision stump(<em>A stump is a two-node tree, after a single split.</em>) C4.5 and ID3 generated decision trees are also perform well as weak learners for adaboost.</p>
+    By weak I mean that classifier does a better job at classifying than randomly guessing but not by much i.e. it classifies  slightly better than 50% of the correct labels in the sampled outputs.A weak classifer could be a simple decision stump(<em>A stump is a two-node tree, after a single split.</em>), C4.5 and ID3 generated decision trees  also perform well as weak learners for adaboost.</p>
 
 <h4>Algorithm</h4>
 
@@ -196,7 +204,7 @@ d) exp(Indicator function(I)) gives 1 when I=0 hence weight remain unchanged els
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[FrugalKmeans: Restaurants' Home Delivery Route Optimizer]]></title>
+    <title type="html"><![CDATA[FrugalKmeans: Restaurants' home delivery route optimizer]]></title>
     <link href="http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer/"/>
     <updated>2015-09-19T11:41:55+01:00</updated>
     <id>http://vivekmishra1991.github.io/blog/2015/09/19/frugalkmeans-restaurants-home-delivery-route-optimizer</id>
@@ -207,6 +215,9 @@ d) exp(Indicator function(I)) gives 1 when I=0 hence weight remain unchanged els
 <p>FrugalKmeans tries to analyze this over my favorite city <em>Lucknow</em>,India which is known for its exquisite <em>Awadhi</em> Cuisine .</p>
 
 <p>After-all <strong>FRUGALITY IS OPTIMAL</strong>.</p>
+
+<!-- more -->
+
 
 <h2>DATA</h2>
 
@@ -420,55 +431,55 @@ another algorithms called bisecting k-means is developed. It starts with choosin
 </thead>
 <tbody>
 <tr>
-<td>_____________</td>
+<td>_________________</td>
 <td>____________</td>
 <td>_________</td>
 <td>________</td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8906639 </td>
+<td> 26.8906639      </td>
 <td> 80.9670749 </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8658443 </td>
+<td> 26.8658443      </td>
 <td> 80.9104684 </td>
 <td> circle1 </td>
 <td> orange </td>
 </tr>
 <tr>
-<td> 26.8453894 </td>
+<td> 26.8453894      </td>
 <td> 80.9456421 </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8466937 </td>
+<td> 26.8466937      </td>
 <td> 80.946166  </td>
 <td> circle1 </td>
 <td> blue   </td>
 </tr>
 <tr>
-<td> 26.8532449 </td>
+<td> 26.8532449      </td>
 <td> 80.9965217 </td>
 <td> circle1 </td>
 <td> black  </td>
