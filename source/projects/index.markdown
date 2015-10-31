@@ -25,7 +25,7 @@ footer: true
 
 ##MachineLearningAlgos(_2015_)
 **Technology**:Numpy,Python,Ipython-notebook</br>
-**Descp**:A python implementation of basic machine Learning algorithms like SVM(SMO),KNN,CART,K-Means,NaiveBayyes(spam-email Classifier),decision trees etc.</br> 
+**Descp**:A python implementation of basic machine Learning algorithms like SVM(SMO),KNN,CART,K-Means,NaiveBayes(spam-mail classifier),decision trees etc.</br> 
 [MachineLearningAlgos-Github](https://github.com/vivekmishra1991/MachineLearningAlgos) 
 
 ##SAEB (_2014_)
