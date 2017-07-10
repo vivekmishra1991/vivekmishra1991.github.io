@@ -117,9 +117,9 @@
 
 <div class="entry-content"><h3>Randomforests And Bootstrap Aggregating</h3>
 
-<p>As we know in simple averaging methods RFs perform better than Bootstrap Aggregating or <em>bagging</em> by considerably reducing the high variance (see <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance tradeoff</a>) of a single classifier by continuous independent sampling with replacement from the same distribution(dataset). This performance gain of RFs is described very well in <a href="http://machinelearning202.pbworks.com/w/file/fetch/60606349/breiman_randomforests.pdf">this</a> Leo Breiman(2001) paper and also in <a href="http://www-stat.stanford.edu/~tibs/ElemStatLearn/">The Elements of Statistical Learning : Hastie,Tibshirani,Friedman </a> in the section RandomForests.</p>
+<p>As we know in simple averaging methods RFs perform better than Bootstrap Aggregating or <em>bagging</em> by considerably reducing the high variance (see <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance tradeoff</a>) of a single classifier by continuous independent sampling with replacement from the same distribution(dataset). This performance gain of RFs is described very well in <a href="http://machinelearning202.pbworks.com/w/file/fetch/60606349/breiman_randomforests.pdf">this</a> Leo Breiman(2001) paper and also in <a href="http://www-stat.stanford.edu/~tibs/ElemStatLearn/"> The Elements of Statistical Learning : Hastie,Tibshirani,Friedman </a> in the section RandomForests. </p>
 
-<p>I will briefly describe the idea of performance gain in Rfs over bagging here.Since in both the ensembling methods a single classifier(decision trees) ,which is very prone to high variance, when makes use of all the available features,it tends to over-fit since a more complex tree dependence structure is generated. Averaging over different classifiers, with low collinearity among them, decreases the over-all complexity of the final ensembled model. But including all the feature is not a good idea,since all the features might not help much in overall information gain for individual classifier and many a time can prove to be a source of noise.To overcome this problem <strong>L. Breiman</strong> proposed the idea of selecting features randomly from some fixed number of features..</p>
+<p> I will briefly describe the idea of performance gain in Rfs over bagging here. Since in both the ensembling methods a single classifier(decision trees), which is very prone to high variance, when makes use of all the available features, it tends to over-fit since a more complex tree dependence structure is generated. Averaging over different classifiers, with low collinearity among them, decreases the over-all complexity of the final ensembled model. But including all the feature is not a good idea, since all the features might not help much in overall information gain for individual classifier and many a time can prove to be a source of noise. To overcome this problem <strong>L. Breiman</strong> proposed the idea of selecting features randomly from some fixed number of features..</p>
 
 <!-- more -->
 
@@ -251,10 +251,10 @@
 
 <p><img src="/./assets/rf_bagging/img.png" alt="Figure1" /></p>
 
-<p>In the above plot we tried to plot <strong>out-of-bag error</strong>(error estimated over currently ensembled classifiers with data point not in dataset or out of the bag) on Y-axis and X-axis shows <em>&ldquo;n_estimator&rdquo;</em> which describes the number of estimator ensembled till now . As the number of estimator increase overall variance reduces for both the ensembling methods. But Random Forest is the clear winner all the way while growing the forest where #Tress equals 100.
+<p>In the above plot we tried to plot <strong>out-of-bag error</strong>(error estimated over currently ensembled classifiers with data point not in dataset or out of the bag) on Y-axis and X-axis shows <em>&ldquo;n_estimator&rdquo;</em> which describes the number of estimator ensembled till now. As the number of estimator increase overall variance reduces for both the ensembling methods. But Random Forest is the clear winner all the way while growing the forest where #Tress equals 100.
 This shows how random feature selection generalizes the final model and reduces over-fitting and variance than choosing all the features.</p>
 
-<p>Also remember,the performance of RFs is very much dependent upon the collinearity between the  estimators being grown for the forests.Lesser the collinearity ,better is the performance of the estimator.</p>
+<p>Also remember,the performance of RFs is very much dependent upon the collinearity between the estimators being grown for the forests. Lesser the collinearity, better is the performance of the estimator.</p>
 </div>
 
 
